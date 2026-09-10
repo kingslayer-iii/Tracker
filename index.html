@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="Department of Metallurgical and Materials Engineering — Second Year (Semester III) · Batch 2025–2029 Academic Hub." />
+    <link rel="icon" type="image/svg+xml" href="/mme-logo.svg" />
+    <link rel="apple-touch-icon" href="/mme-logo.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Tracker — Department of Metallurgical and Materials Engineering</title>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: 'Inter', system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
+        transition: background-color 0.4s ease, color 0.4s ease;
+      }
+      :root, [data-theme="dark"], body {
+        background-color: #080B0F;
+        color: #F8FAFC;
+      }
+      [data-theme="light"], html[data-theme="light"] body {
+        background-color: #F4F6F8 !important;
+        color: #0F172A !important;
+      }
+      /* Typography */
+      .mme-display, h1, h2, h3, h4 {
+        font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+        letter-spacing: -0.02em;
+      }
+      /* Interactive animations */
+      .mme-interactive-card {
+        transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.25s ease, border-color 0.25s ease;
+        will-change: transform;
+      }
+      .mme-interactive-card:hover {
+        transform: translateY(-3px) scale(1.01);
+        box-shadow: 0 12px 24px -10px rgba(45, 212, 191, 0.15);
+      }
+      [data-theme="light"] .mme-interactive-card:hover {
+        box-shadow: 0 12px 24px -10px rgba(15, 23, 42, 0.1);
+      }
+      .mme-btn {
+        transition: transform 0.15s ease, opacity 0.15s ease;
+      }
+      .mme-btn:active {
+        transform: scale(0.96);
+      }
+      .glass-panel {
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

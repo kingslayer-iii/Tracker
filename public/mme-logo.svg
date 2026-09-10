@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <defs>
+    <linearGradient id="metallic-emerald-cobalt" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2DD4BF" />
+      <stop offset="100%" stop-color="#38BDF8" />
+    </linearGradient>
+    <linearGradient id="metallic-gold" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+    <radialGradient id="quantum-core" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="1" />
+      <stop offset="100%" stop-color="#2DD4BF" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Hexagonal Lattice base -->
+  <polygon points="50,10 85,30 85,70 50,90 15,70 15,30" fill="none" stroke="url(#metallic-emerald-cobalt)" stroke-width="3" stroke-linejoin="round"/>
+  
+  <!-- Lattice Connections (Unit cell lines) -->
+  <line x1="15" y1="30" x2="50" y2="50" stroke="url(#metallic-emerald-cobalt)" stroke-width="1.5" opacity="0.6"/>
+  <line x1="85" y1="30" x2="50" y2="50" stroke="url(#metallic-emerald-cobalt)" stroke-width="1.5" opacity="0.6"/>
+  <line x1="50" y1="90" x2="50" y2="50" stroke="url(#metallic-emerald-cobalt)" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Bragg Diffraction Rings -->
+  <circle cx="50" cy="50" r="18" fill="none" stroke="url(#metallic-gold)" stroke-width="1" stroke-dasharray="2 3" opacity="0.8">
+    <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="20s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="50" cy="50" r="28" fill="none" stroke="url(#metallic-gold)" stroke-width="1" stroke-dasharray="4 6" opacity="0.5">
+    <animateTransform attributeName="transform" type="rotate" from="360 50 50" to="0 50 50" dur="25s" repeatCount="indefinite" />
+  </circle>
+
+  <!-- Quantum Atomic Core -->
+  <circle cx="50" cy="50" r="12" fill="url(#quantum-core)" />
+  <circle cx="50" cy="50" r="4" fill="#FFFFFF" />
+
+  <!-- Atoms at vertices -->
+  <circle cx="50" cy="10" r="4" fill="url(#metallic-gold)" />
+  <circle cx="85" cy="30" r="4" fill="url(#metallic-gold)" />
+  <circle cx="85" cy="70" r="4" fill="url(#metallic-gold)" />
+  <circle cx="50" cy="90" r="4" fill="url(#metallic-gold)" />
+  <circle cx="15" cy="70" r="4" fill="url(#metallic-gold)" />
+  <circle cx="15" cy="30" r="4" fill="url(#metallic-gold)" />
+</svg>

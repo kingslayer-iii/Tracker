@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="favGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2DD4BF" />
+      <stop offset="50%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#818CF8" />
+    </linearGradient>
+    <linearGradient id="favGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCD34D" />
+      <stop offset="100%" stop-color="#F59E0B" />
+    </linearGradient>
+  </defs>
+  <polygon points="50,4 90,26 90,74 50,96 10,74 10,26" fill="#0A0F1D" stroke="url(#favGrad)" stroke-width="3" stroke-linejoin="round" />
+  <path d="M50,14 L82,32 L50,50 L18,32 Z" fill="url(#favGrad)" fill-opacity="0.2" stroke="url(#favGrad)" stroke-width="1.8" />
+  <path d="M18,32 L50,50 L50,86 L18,68 Z" fill="url(#favGrad)" fill-opacity="0.3" stroke="url(#favGrad)" stroke-width="1.8" />
+  <path d="M82,32 L50,50 L50,86 L82,68 Z" fill="url(#favGrad)" fill-opacity="0.1" stroke="url(#favGrad)" stroke-width="1.8" />
+  <ellipse cx="50" cy="50" rx="28" ry="10" transform="rotate(-30 50 50)" fill="none" stroke="#38BDF8" stroke-width="2" stroke-dasharray="6 3" opacity="0.9" />
+  <circle cx="50" cy="14" r="4" fill="#2DD4BF" />
+  <circle cx="82" cy="32" r="4" fill="#38BDF8" />
+  <circle cx="82" cy="68" r="4" fill="#818CF8" />
+  <circle cx="50" cy="86" r="4" fill="#F59E0B" />
+  <circle cx="18" cy="68" r="4" fill="#818CF8" />
+  <circle cx="18" cy="32" r="4" fill="#38BDF8" />
+  <circle cx="50" cy="50" r="7" fill="url(#favGold)" />
+  <circle cx="50" cy="50" r="3" fill="#FFFFFF" />
+</svg>
