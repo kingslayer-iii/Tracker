@@ -7,7 +7,7 @@ import {
   UserCheck, GraduationCap, ShieldCheck, Atom, Layers, Cpu, Zap,
   Shield, Activity, Terminal, Sun, Moon, RotateCcw
 } from "lucide-react";
-import { db } from "./src/firebase";
+import { db } from "./firebase";
 import { doc, onSnapshot, getDoc, setDoc } from "firebase/firestore";
 import bcrypt from "bcryptjs";
 
@@ -1508,7 +1508,7 @@ export default function MMEHub() {
           nextUsers = prev.users.map(u => (u.entryNo === user.entryNo || (u.id === user.id && user.id)) ? { ...u, loggedInAt: user.loggedInAt, name: user.name } : u);
         }
         const nextAppData = { ...prev, users: nextUsers };
-        window.storage.set(DATA_KEY, JSON.stringify(nextAppData), true).catch(() => {});
+        window.storage.set(STORAGE_KEY, JSON.stringify(nextAppData), true).catch(() => {});
         return nextAppData;
       });
     }

@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import MMEHub from "../mme-hub.jsx";
+import MMEHub from "./mme-hub.jsx";
 
 /* ── polyfill window.storage using localStorage ── */
 if (!window.storage) {
