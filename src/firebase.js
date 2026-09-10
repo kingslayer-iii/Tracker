@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
@@ -15,7 +15,16 @@ let app, db, auth;
 
 try {
   app = initializeApp(firebaseConfig);
-  db = getFirestore(app);
+
+  // Enable persistent offline cache with multi-tab support.
+  // On repeat visits the app renders instantly from IndexedDB,
+  // then Firestore syncs any changes in the background.
+  db = initializeFirestore(app, {
+    localCache: persistentLocalCache({
+      tabManager: persistentMultipleTabManager()
+    })
+  });
+
   auth = getAuth(app);
 } catch (err) {
   console.error("Firebase initialization error. Make sure to set your .env variables.", err);

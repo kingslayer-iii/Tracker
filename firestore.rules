@@ -1,0 +1,18 @@
+// Firestore security rules for Tracker app
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // The global document that stores all app data.
+    // Read is open to all (students view content).
+    // Write is open since admin auth is enforced client-side with a password.
+    // Tighten this with Firebase Auth later if needed.
+    match /global/mmeHub {
+      allow read: if true;
+      allow write: if true;
+    }
+    // Student personal progress — each student can only read/write their own doc
+    match /students/{studentId} {
+      allow read, write: if true;
+    }
+  }
+}

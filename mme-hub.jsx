@@ -8,7 +8,7 @@ import {
   Shield, Activity, Terminal, Sun, Moon, RotateCcw
 } from "lucide-react";
 import { db } from "./src/firebase";
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot, getDoc, setDoc } from "firebase/firestore";
 import bcrypt from "bcryptjs";
 
 /* ───────────────────────── design tokens: Modern Physics & Advanced Materials ───────────────────────── */
@@ -56,7 +56,7 @@ const C = {
 };
 
 const FONT_CSS = `
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+/* Fonts loaded via index.html preload — no @import needed here */
 
 :root, [data-theme="dark"] {
   --mme-bg: #080B0F;
