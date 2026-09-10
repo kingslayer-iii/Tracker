@@ -3207,7 +3207,8 @@ export default function MMEHub() {
               </button>
             )}
           </div>
-        )}\n        </div>
+        )}
+        </div>
       </div>
 
       {/* content */}
