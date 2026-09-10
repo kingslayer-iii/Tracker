@@ -3074,11 +3074,12 @@ export default function MMEHub() {
 
   /* ═══════════════ MOBILE LAYOUT ═══════════════ */
   return (
-    <div className="mme-root mme-scroll" style={{ maxWidth: 480, margin: "0 auto", minHeight: 600, display: "flex", flexDirection: "column", position: "relative" }}>
+    <div className="mme-root" style={{ width: "100%", minHeight: "100vh", display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
       <style>{FONT_CSS}</style>
 
       {/* top bar */}
-      <div style={{ position: "sticky", top: 0, zIndex: 20, background: C.bg, borderBottom: `1px solid ${C.border}`, padding: "12px 16px" }}>
+      <div style={{ position: "sticky", top: 0, zIndex: 20, background: C.bg, borderBottom: `1px solid ${C.border}` }}>
+        <div style={{ maxWidth: 640, margin: "0 auto", padding: "12px 16px" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
             <MMELogo size={32} />
@@ -3206,11 +3207,11 @@ export default function MMEHub() {
               </button>
             )}
           </div>
-        )}
+        )}\n        </div>
       </div>
 
       {/* content */}
-      <div style={{ flex: 1, padding: "16px 16px 90px", overflowY: "auto" }}>
+      <div className="mme-scroll" style={{ flex: 1, padding: "16px 16px 90px", overflowY: "auto", WebkitOverflowScrolling: "touch", maxWidth: 640, width: "100%", margin: "0 auto", boxSizing: "border-box" }}>
         <CurrentView />
       </div>
 
