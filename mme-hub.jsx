@@ -2422,39 +2422,108 @@ export default function MMEHub() {
 
   /* ═══════════════ VIEW: CALENDAR ═══════════════ */
   function CalendarView() {
-    const cal = appData.calendarLinks.find((c) => c.isActive) || appData.calendarLinks[0];
+    const links = appData.calendarLinks || [];
+    // Support both legacy shape {url, title} and new shape {embedUrl, openUrl, name}
+    const normalize = (c) => ({
+      ...c,
+      name: c.name || c.title || "Calendar Link",
+      embedUrl: c.embedUrl || "",
+      openUrl: c.openUrl || c.url || "",
+    });
+    const normalizedLinks = links.map(normalize);
+    const activeEmbed = normalizedLinks.find((c) => c.isActive && c.embedUrl) || normalizedLinks.find((c) => c.embedUrl);
+
     return (
-      <div className="mme-fade" style={{ display: "flex", flexDirection: "column", gap: isDesktop ? 18 : 12 }}>
+      <div className="mme-fade" style={{ display: "flex", flexDirection: "column", gap: isDesktop ? 20 : 14 }}>
+        {/* Header */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 10 }}>
           <div>
-            <div className="mme-display" style={{ fontSize: isDesktop ? 24 : 20, fontWeight: 700 }}>Academic calendar</div>
-            <div style={{ fontSize: 13, color: C.textFaint, marginTop: 1 }}>Official academic schedule, exams and semester dates</div>
+            <div className="mme-display" style={{ fontSize: isDesktop ? 24 : 20, fontWeight: 700 }}>Academic Calendar</div>
+            <div style={{ fontSize: 13, color: C.textFaint, marginTop: 2 }}>Official academic schedule, exams and semester dates</div>
           </div>
           {canManage && (
-            <button className="mme-add-btn" onClick={() => openEditModal("calendarLinks", cal || { name: "Academic Calendar", embedUrl: "", openUrl: "" })}>
-              <Pencil size={14} /> Edit Calendar Links
+            <button className="mme-add-btn" onClick={() => openAddModal("calendarLinks", { name: "", embedUrl: "", openUrl: "" })}>
+              <Plus size={14} /> Add Calendar Link
             </button>
           )}
         </div>
 
-        {!cal ? <EmptyState title="No calendar set up yet" sub={canManage ? "Click 'Edit Calendar Links' above to add Google Calendar URL." : undefined} /> : (
-          <>
-            <div style={{ fontSize: 12.5, color: C.textFaint }}>{cal.name} · live academic schedule</div>
-            {cal.embedUrl && (
-              <div style={{ border: `1px solid ${C.border}`, borderRadius: 12, overflow: "hidden", background: C.surface, boxShadow: "0 2px 10px rgba(0,0,0,0.04)" }}>
-                <iframe title="calendar" src={cal.embedUrl} style={{ width: "100%", height: isDesktop ? 600 : 440, border: "none" }} />
-              </div>
-            )}
-            {cal.openUrl && (
-              <a href={cal.openUrl} target="_blank" rel="noreferrer" className="mme-focus" style={{ textAlign: "center", background: C.accent, color: "#fff", borderRadius: 8, padding: "10px 0", fontWeight: 600, fontSize: 13.5, textDecoration: "none", boxShadow: "0 1px 3px rgba(0,0,0,0.1)" }}>
-                Open in Google Calendar ↗
-              </a>
-            )}
-          </>
+        {/* Embedded Google Calendar iframe (if available) */}
+        {activeEmbed && (
+          <div style={{ border: `1px solid ${C.border}`, borderRadius: 14, overflow: "hidden", background: C.surface, boxShadow: "0 4px 20px rgba(0,0,0,0.12)" }}>
+            <div style={{ padding: "10px 16px", borderBottom: `1px solid ${C.border}`, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span style={{ fontSize: 13, fontWeight: 600, color: C.text }}>{activeEmbed.name}</span>
+              {activeEmbed.openUrl && (
+                <a href={activeEmbed.openUrl} target="_blank" rel="noreferrer" style={{ fontSize: 12, color: C.accentText, textDecoration: "none", display: "flex", alignItems: "center", gap: 4 }}>
+                  Open ↗
+                </a>
+              )}
+            </div>
+            <iframe title="calendar-embed" src={activeEmbed.embedUrl} style={{ width: "100%", height: isDesktop ? 620 : 440, border: "none", display: "block" }} loading="lazy" />
+          </div>
+        )}
+
+        {/* Calendar Links as Cards */}
+        {normalizedLinks.length > 0 ? (
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: C.textSoft, marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.06em" }}>
+              {activeEmbed ? "All Calendar Links" : "Calendar Links"}
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: isDesktop ? "repeat(auto-fill, minmax(300px, 1fr))" : "1fr", gap: 12 }}>
+              {normalizedLinks.map((cal) => (
+                <div key={cal.id} className="mme-interactive-card" style={{
+                  background: C.surface, border: `1px solid ${C.border}`, borderRadius: 12,
+                  padding: "14px 16px", display: "flex", alignItems: "center", gap: 12
+                }}>
+                  <div style={{ width: 38, height: 38, borderRadius: 10, background: C.accentSoft, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <Calendar size={18} color={C.accentText} />
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontWeight: 600, fontSize: 13.5, color: C.text, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{cal.name}</div>
+                    {cal.openUrl && (
+                      <div style={{ fontSize: 12, color: C.textFaint, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", marginTop: 2 }}>{cal.openUrl}</div>
+                    )}
+                  </div>
+                  <div style={{ display: "flex", gap: 6, flexShrink: 0 }}>
+                    {cal.openUrl && (
+                      <a href={cal.openUrl} target="_blank" rel="noreferrer" style={{
+                        display: "flex", alignItems: "center", gap: 5, padding: "6px 12px",
+                        background: C.accentSoft, color: C.accentText, borderRadius: 8,
+                        fontSize: 12.5, fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap"
+                      }}>
+                        <ExternalLink size={13} /> Open
+                      </a>
+                    )}
+                    {canManage && (
+                      <button onClick={() => openEditModal("calendarLinks", cal)} style={{
+                        padding: "6px 10px", background: "transparent", border: `1px solid ${C.border}`,
+                        borderRadius: 8, color: C.textSoft, cursor: "pointer", fontSize: 12, display: "flex", alignItems: "center", gap: 4
+                      }}>
+                        <Pencil size={12} /> Edit
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <EmptyState
+            title="No calendar links yet"
+            sub={canManage ? "Click 'Add Calendar Link' above to add your Google Calendar or timetable URL." : "The admin hasn't added any calendar links yet."}
+          />
+        )}
+
+        {/* Admin tip: how to get embed URL */}
+        {canManage && !activeEmbed && normalizedLinks.length > 0 && (
+          <div style={{ background: C.accentSoft, border: `1px solid ${C.borderGlow}`, borderRadius: 10, padding: "12px 16px", fontSize: 13, color: C.accentText }}>
+            💡 <strong>Tip:</strong> To embed a live Google Calendar, open Google Calendar → Settings → your calendar → "Integrate calendar" → copy the <em>Embed code</em> URL and paste it in the <em>Embed URL</em> field when adding a link.
+          </div>
         )}
       </div>
     );
   }
+
 
   /* ═══════════════ VIEW: RESOURCES ═══════════════ */
   function ResourcesView() {
