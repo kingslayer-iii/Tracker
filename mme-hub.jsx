@@ -370,106 +370,21 @@ const CAT_TINT = {
 function makeSeed() {
   const now = Date.now();
   const H = 3600000, D = 86400000;
-  const courses = [
-    {
-      id: "c1", code: "MM201", name: "Thermodynamics & Kinetics of Materials", professor: "Dr. R. K. Sharma",
-      description: "Laws of thermodynamics, Ellingham diagrams, Gibbs-Duhem equation, solution models, phase equilibria, and reaction kinetics in metallurgical systems.",
-      syllabusUrl: "https://drive.google.com/drive/folders/mm201-thermo-syllabus",
-      lectureUrl: "https://drive.google.com/drive/folders/mm201-thermo-lectures",
-      tutorialUrl: "https://drive.google.com/drive/folders/mm201-thermo-tutorials",
-      assignmentUrl: "https://drive.google.com/drive/folders/mm201-thermo-assignments",
-      labUrl: "", papersUrl: "https://drive.google.com/drive/folders/mm201-papers",
-      otherLinks: [{ label: "NPTEL Thermodynamics Reference Lectures", url: "https://nptel.ac.in" }]
-    },
-    {
-      id: "c2", code: "MM202", name: "Physical Metallurgy & Phase Transformations", professor: "Dr. A. Mehta",
-      description: "Binary and ternary phase diagrams, iron-iron carbide (Fe-C) system, solid-state diffusion, nucleation, growth kinetics, and TTT/CCT diagrams.",
-      syllabusUrl: "https://drive.google.com/drive/folders/mm202-physmet-syllabus",
-      lectureUrl: "https://drive.google.com/drive/folders/mm202-physmet-lectures",
-      tutorialUrl: "https://drive.google.com/drive/folders/mm202-physmet-tutorials",
-      assignmentUrl: "https://drive.google.com/drive/folders/mm202-physmet-assignments",
-      labUrl: "https://drive.google.com/drive/folders/mm202-metallography-lab",
-      papersUrl: "https://drive.google.com/drive/folders/mm202-papers",
-      otherLinks: [{ label: "ASM Handbooks Phase Diagrams", url: "https://asminternational.org" }]
-    },
-    {
-      id: "c3", code: "MM203", name: "Materials Characterization & Diffraction", professor: "Dr. S. Iyer",
-      description: "X-ray diffraction (XRD), Bragg's Law, peak indexing, structure factors, Scanning Electron Microscopy (SEM), TEM electron optics, and spectroscopy.",
-      syllabusUrl: "https://drive.google.com/drive/folders/mm203-char-syllabus",
-      lectureUrl: "https://drive.google.com/drive/folders/mm203-char-lectures",
-      tutorialUrl: "", assignmentUrl: "https://drive.google.com/drive/folders/mm203-assignments",
-      labUrl: "https://drive.google.com/drive/folders/mm203-xrd-lab",
-      papersUrl: "https://drive.google.com/drive/folders/mm203-papers",
-      otherLinks: [{ label: "Crystallography Online Tools & CIF Database", url: "https://crystallography.net" }]
-    },
-    {
-      id: "c4", code: "MM204", name: "Mechanical Behavior & Deformation", professor: "Dr. K. Nair",
-      description: "Elastic & plastic deformation, dislocation theory, Peierls-Nabarro stress, strengthening mechanisms, fracture mechanics, fatigue, and high-temp creep.",
-      syllabusUrl: "https://drive.google.com/drive/folders/mm204-mech-syllabus",
-      lectureUrl: "https://drive.google.com/drive/folders/mm204-mech-lectures",
-      tutorialUrl: "https://drive.google.com/drive/folders/mm204-mech-tutorials",
-      assignmentUrl: "", labUrl: "https://drive.google.com/drive/folders/mm204-testing-lab",
-      papersUrl: "https://drive.google.com/drive/folders/mm204-papers",
-      otherLinks: [{ label: "Dieter Mechanical Metallurgy Handbook", url: "https://drive.google.com" }]
-    },
-    {
-      id: "c5", code: "MM205", name: "Transport Phenomena in Metallurgy", professor: "Dr. P. Verma",
-      description: "Momentum, heat, and mass transfer in furnaces and reactors, boundary layer theory, Navier-Stokes equations in molten metal flows, and solidification kinetics.",
-      syllabusUrl: "https://drive.google.com/drive/folders/mm205-transport-syllabus",
-      lectureUrl: "https://drive.google.com/drive/folders/mm205-transport-lectures",
-      tutorialUrl: "https://drive.google.com/drive/folders/mm205-transport-tutorials",
-      assignmentUrl: "https://drive.google.com/drive/folders/mm205-assignments",
-      labUrl: "", papersUrl: "https://drive.google.com/drive/folders/mm205-papers",
-      otherLinks: [{ label: "Furnace Heat Transfer Simulation Notes", url: "https://youtube.com" }]
-    },
-  ];
+  const courses = [];
 
-  const deadlines = [
-    { id: "d1", title: "MM203 Lab: XRD Peak Indexing & Lattice Parameter (BCC/FCC)", courseId: "c3", dueAt: new Date(now + 9 * H).toISOString(), link: "https://drive.google.com/drive/folders/mm203-xrd-lab", description: "Calculate lattice parameter 'a' using Nelson-Riley extrapolation. Submit PDF.", completed: false },
-    { id: "d2", title: "MM201 Tutorial 4: Ellingham Diagram Calculations", courseId: "c1", dueAt: new Date(now + 26 * H).toISOString(), link: "https://drive.google.com/drive/folders/mm201-thermo-tutorials", description: "Determine oxygen partial pressures for oxide reduction at 1200 K.", completed: false },
-    { id: "d3", title: "MM202 Problem Set: Fe-C Invariant Reactions", courseId: "c2", dueAt: new Date(now + 3 * D).toISOString(), link: "https://drive.google.com/drive/folders/mm202-physmet-assignments", description: "Calculate proeutectoid ferrite and pearlite mass fractions in 0.45 wt% C steel.", completed: false },
-    { id: "d4", title: "MM204 Tensile Test Data Analysis & True Stress-Strain Curve", courseId: "c4", dueAt: new Date(now + 5 * D).toISOString(), link: "https://drive.google.com/drive/folders/mm204-testing-lab", description: "Plot Hollomon equation parameters (n and K) for annealed brass specimen.", completed: false },
-    { id: "d5", title: "MM205 Case Study: Heat Transfer in Continuous Casting Mold", courseId: "c5", dueAt: new Date(now + 9 * D).toISOString(), link: "https://drive.google.com/drive/folders/mm205-assignments", description: "Numerical 1D transient heat conduction model across copper mold chill.", completed: false },
-    { id: "d6", title: "MM201 Tutorial 3: Solution Thermodynamics (Raoult & Henry)", courseId: "c1", dueAt: new Date(now - 2 * D).toISOString(), link: "https://drive.google.com/drive/folders/mm201-thermo-tutorials", description: "Activity coefficient calculations in binary Fe-Ni alloy system.", completed: false },
-  ];
+  const deadlines = [];
 
-  const announcements = [
-    { id: "a1", title: "Semester III Mid-Semester Examination Schedule Published", description: "Official schedule for 2nd Year (Semester III) students of the 2025–2029 batch has been released. MM201 Thermodynamics exam is scheduled for Monday 10:00 AM in Exam Hall 2.", category: "EXAM", priority: 2, pinned: true, link: "https://drive.google.com/file/sem3-midsem-schedule", courseId: null, createdAt: new Date(now - 1 * D).toISOString() },
-    { id: "a2", title: "MM203 XRD Characterization Lab Batch Timings", description: "Batches A1 and A2 report to the Central Diffraction Facility on Tuesday 2:00 PM. Closed shoes and lab coats mandatory.", category: "LAB", priority: 2, pinned: true, link: "", courseId: "c3", createdAt: new Date(now - 2 * D).toISOString() },
-    { id: "a3", title: "Special Lecture: Advanced High-Entropy Alloys & Modern Quantum Physics", description: "Invited speaker from Materials Research Centre discussing electronic band structures in complex concentrated alloys. LT-3 at 4:30 PM.", category: "EVENT", priority: 1, pinned: false, link: "", courseId: "c2", createdAt: new Date(now - 3 * D).toISOString() },
-    { id: "a4", title: "MM204 Metallography & Hardness Testing Viva Guidelines", description: "Review Rockwell C and Vickers microhardness indentation mechanics prior to tomorrow's viva session.", category: "ACADEMIC", priority: 0, pinned: false, link: "", courseId: "c4", createdAt: new Date(now - 4 * D).toISOString() },
-    { id: "a5", title: "Previous Year 3rd Sem Papers Added to Resource Drive", description: "End-semester papers from 2023, 2024, and 2025 have been uploaded to Resources under Previous Papers.", category: "GENERAL", priority: 0, pinned: false, link: "", courseId: null, createdAt: new Date(now - 6 * D).toISOString() },
-  ];
+  const announcements = [];
 
-  const resources = [
-    { id: "r1", title: "XRD Peak Indexing & Miller Indices Formula Sheet", category: "LAB_RESOURCES", courseId: "c3", url: "https://drive.google.com/file/xrd-miller-indices", description: "Interplanar spacing equations for cubic, tetragonal, and hexagonal systems with systematic absence extinction rules." },
-    { id: "r2", title: "Iron-Carbon (Fe-Fe3C) High-Resolution Equilibrium Phase Diagram", category: "NOTES", courseId: "c2", url: "https://drive.google.com/file/fe-c-diagram-hd", description: "Annotated phase diagram with invariant reaction temperatures, microconstituents, and solvus lines." },
-    { id: "r3", title: "Thermodynamics of Materials: Solution Models & Ellingham Plots", category: "NOTES", courseId: "c1", url: "https://drive.google.com/file/mme-thermo-cheatsheet", description: "Comprehensive derivations of Gibbs-Duhem equation, regular solution models, and oxide stability plots." },
-    { id: "r4", title: "Dislocation Theory & Strain Hardening Mechanics", category: "NOTES", courseId: "c4", url: "https://drive.google.com/file/dislocations-notes", description: "Edge vs screw dislocations, Burger's vector, slip planes, and Hall-Petch grain boundary strengthening." },
-    { id: "r5", title: "MM201 Thermodynamics Mid-Sem 2024 Question Paper", category: "PREVIOUS_PAPERS", courseId: "c1", url: "https://drive.google.com/file/mm201-midsem-2024", description: "Includes worked solutions and step-by-step mark distribution." },
-    { id: "r6", title: "Transport Phenomena in Metallurgy Reference Book (Bird)", category: "BOOKS", courseId: "c5", url: "https://drive.google.com/file/transport-phenomena-ref", description: "Essential chapters for heat transfer in furnace walls and boundary layer theory." },
-  ];
+  const resources = [];
 
-  const calendarLinks = [
-    { id: "cal1", title: "Semester III Master Timetable (PDF)", url: "https://drive.google.com/file/sem3-timetable" },
-    { id: "cal2", title: "Official MME Department Academic Calendar 2025-2026", url: "https://drive.google.com/file/mme-academic-calendar" },
-    { id: "cal3", title: "Google Calendar: Live MME 2029 Schedule Sync", url: "https://calendar.google.com/calendar/u/0/r" }
-  ];
+  const calendarLinks = [];
 
-  const admins = [
-    { id: "admin-super", name: "Super Admin", passcodeHash: bcrypt.hashSync("mme2029-super", 10), role: "SUPER_ADMIN" }
-  ];
+  const admins = [];
 
-  const discussions = [
-    { id: "q1", title: "How to calculate oxygen partial pressure in Ellingham Diagram?", author: "Aryan", replies: [{ id: "rep1", author: "Super Admin", role: "SUPER_ADMIN", content: "Use the relation delta G = RT ln(pO2). You can read off delta G directly from the y-axis for a given temperature.", createdAt: new Date(now - 1 * H).toISOString() }], createdAt: new Date(now - 3 * H).toISOString() }
-  ];
+  const discussions = [];
 
-  const users = [
-    { id: "u1", name: "Priyanshu", email: "priyanshu@mme.ac.in", role: "STUDENT" },
-    { id: "u2", name: "Ananya (Admin)", email: "admin.mme2029@mme.ac.in", role: "ADMIN" },
-    { id: "u3", name: "Department Admin", email: "head.mme@mme.ac.in", role: "ADMIN" },
-    { id: "u4", name: "Rohan", email: "rohan@mme.ac.in", role: "STUDENT" },
-  ];
+  const users = [];
 
   return { courses, deadlines, announcements, resources, calendarLinks, users };
 }
@@ -1582,6 +1497,21 @@ export default function MMEHub() {
     setStudentPreview(false);
     window.storage.set(AUTH_KEY, JSON.stringify(user), false).catch(() => {});
     loadStudentProgress(user);
+    if (user.role === "STUDENT") {
+      setAppData(prev => {
+        const existing = prev.users.find(u => u.entryNo === user.entryNo || (u.id === user.id && user.id));
+        let nextUsers;
+        if (!existing) {
+          const newUser = { id: uid("u"), name: user.name, entryNo: user.entryNo, role: user.role, loggedInAt: user.loggedInAt };
+          nextUsers = [...prev.users, newUser];
+        } else {
+          nextUsers = prev.users.map(u => (u.entryNo === user.entryNo || (u.id === user.id && user.id)) ? { ...u, loggedInAt: user.loggedInAt, name: user.name } : u);
+        }
+        const nextAppData = { ...prev, users: nextUsers };
+        window.storage.set(DATA_KEY, JSON.stringify(nextAppData), true).catch(() => {});
+        return nextAppData;
+      });
+    }
   }
 
   function handleLogout() {
@@ -1719,7 +1649,7 @@ export default function MMEHub() {
 
   function requestDeleteItem(kind, item) {
     const label = item.title || item.name || `${item.code ? item.code + " — " : ""}${item.name || "this item"}`;
-    const kindLabel = kind === "calendarLinks" ? "Calendar Link" : kind === "courses" ? "Course" : kind === "deadlines" ? "Deadline" : kind === "announcements" ? "Announcement" : "Resource";
+    const kindLabel = kind === "calendarLinks" ? "Calendar Link" : kind === "courses" ? "Course" : kind === "deadlines" ? "Deadline" : kind === "announcements" ? "Announcement" : kind === "users" ? "User" : "Resource";
     setConfirmState({
       title: `Delete ${kindLabel}`,
       message: `Permanently delete "${label}"? This action cannot be undone.`,
@@ -2783,13 +2713,23 @@ export default function MMEHub() {
               <div key={u.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: C.surface, border: `1px solid ${C.border}`, borderRadius: 8, padding: "10px 12px" }}>
                 <div>
                   <div style={{ fontWeight: 600, fontSize: 14 }}>{u.name}</div>
-                  <div style={{ fontSize: 12, color: C.textFaint }}>{u.email}</div>
+                  <div style={{ fontSize: 12, color: C.textFaint }}>
+                    {u.email || u.entryNo || "No contact info"}
+                    {u.loggedInAt && <span style={{ marginLeft: 6, color: C.accent }}>• Last login: {new Date(u.loggedInAt).toLocaleDateString()}</span>}
+                  </div>
                 </div>
-                <select className="mme-focus" value={u.role} onChange={(e) => persistApp({ ...appData, users: appData.users.map((x) => x.id === u.id ? { ...x, role: e.target.value } : x) })}
-                  style={{ border: `1px solid ${C.border}`, borderRadius: 6, padding: "5px 8px", fontSize: 12.5 }}>
-                  <option value="STUDENT">Student</option>
-                  <option value="ADMIN">Admin</option>
-                </select>
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <select className="mme-focus" value={u.role} onChange={(e) => persistApp({ ...appData, users: appData.users.map((x) => x.id === u.id ? { ...x, role: e.target.value } : x) })}
+                    style={{ border: `1px solid ${C.border}`, borderRadius: 6, padding: "5px 8px", fontSize: 12.5 }}>
+                    <option value="STUDENT">Student</option>
+                    <option value="BR">Batch Rep</option>
+                    <option value="ADMIN">Admin</option>
+                    <option value="SUPER_ADMIN">Super Admin</option>
+                  </select>
+                  <button onClick={() => requestDeleteItem("users", u)} className="mme-focus" style={{ background: "transparent", border: "none", cursor: "pointer", color: C.red, display: "flex", alignItems: "center", padding: 4 }} title="Delete user">
+                    <Trash2 size={16} />
+                  </button>
+                </div>
               </div>
             ))}
           </div>
